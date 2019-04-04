@@ -1,0 +1,1 @@
+{"version":3,"file":"main.4108cae933d948d4d8d7.bundle.js","sources":["webpack:///./.storybook/compat.js"],"sourcesContent":["export { default as default }  from 'preact-compat';\nexport * from 'preact-compat';\nexport { createContext } from 'preact-context';\nexport { forwardRef, createRef } from 'create-react-ref';\n"],"mappings":"AAAA","sourceRoot":""}
