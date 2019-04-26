@@ -20,6 +20,9 @@ import { Provider as StoreProvider, Consumer as StoreConsumer } from '../../stor
 import { visibility } from '../helpers';
 import constants from '../../lib/constants';
 import { loadMessages } from '../../lib/room';
+import { EventEmitter } from 'tiny-events';
+class RegisterEvent extends EventEmitter { }
+const registerEvent = new RegisterEvent();
 
 export class App extends Component {
 
@@ -63,6 +66,7 @@ export class App extends Component {
 				!(user && user.token)
 			);
 
+			registerEvent.once('registered', () => route('/'));
 			if (showRegistrationForm) {
 				return route('/register');
 			}
@@ -178,6 +182,13 @@ export class App extends Component {
 
 	componentDidMount() {
 		this.initialize();
+	}
+  
+	componentDidUpdate(prevProps) {
+		const { user } = this.props;
+		if ((prevProps.user !== user) && user.token) {
+			registerEvent.emit('registered');
+		}
 	}
 
 	componentWillUnmount() {
